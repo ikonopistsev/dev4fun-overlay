@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+
+description="DisplayLink Manager Service"
+command="/opt/displaylink/DisplayLinkManager"
+pidfile="/run/dlm.pid"
+start_stop_daemon_args="-b -m --pidfile ${pidfile}"
+
+start_pre() {
+    modprobe evdi
+}
+

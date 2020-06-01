@@ -1,0 +1,34 @@
+--- displaylink-driver-5.3.1/udev-installer.sh	2020-05-05 12:57:10.000000000 +0300
++++ udev-installer-5.3.1.sh	2020-06-01 16:00:31.144050224 +0300
+@@ -84,6 +84,22 @@
+ 
+ }
+ 
++openrc_start_stop_functions()
++{
++cat <<EOF
++start_service()
++{
++    /etc/init.d/dlm start
++}
++
++stop_service()
++{
++    /etc/init.d/dlm stop
++}
++
++EOF
++}
++
+ displaylink_bootstrapper_code()
+ {
+   cat <<'EOF'
+@@ -219,6 +235,8 @@
+     start_stop_functions="$(systemd_start_stop_functions)"
+   elif [ "$init_daemon" = "runit" ]; then
+     start_stop_functions="$(runit_start_stop_functions)"
++  elif [ "$init_daemon" = "openrc" ]; then
++    start_stop_functions="$(openrc_start_stop_functions)"
+   else
+     (>&2 echo "Unknown init daemon: $init_daemon")
+     exit 1
