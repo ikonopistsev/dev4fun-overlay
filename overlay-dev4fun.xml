@@ -1,0 +1,11 @@
+<repositories encoding="unicode" version="1.1">
+  <repo priority="50" quality="personal">
+    <name>dev4fun</name>
+    <description>ikonopistsev gentoo personal overlay</description>
+    <owner>
+      <email>admin@dev4.fun</email>
+      <name>Ikonopistsev</name>
+    </owner>
+    <source type="git">https://github.com/ikonopistsev/dev4fun-overlay.git</source>
+  </repo>
+</repositories>
