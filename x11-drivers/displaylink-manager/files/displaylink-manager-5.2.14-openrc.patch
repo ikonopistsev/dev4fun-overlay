@@ -1,6 +1,6 @@
---- displaylink-manager-5.3.1/udev-installer.sh	2020-05-05 12:57:10.000000000 +0300
-+++ udev-installer.sh	2020-06-02 10:54:05.201298295 +0300
-@@ -84,6 +84,24 @@
+--- displaylink-manager-5.2.14/udev-installer.sh	2019-06-18 14:22:45.000000000 +0300
++++ udev-installer.sh	2020-06-02 14:48:47.952137274 +0300
+@@ -53,6 +53,23 @@
  
  }
  
@@ -21,26 +21,25 @@
 +
 +}
 +
-+
  displaylink_bootstrapper_code()
  {
    cat <<'EOF'
-@@ -219,6 +237,8 @@
+@@ -186,6 +203,8 @@
+     start_stop_functions="$(upstart_start_stop_functions)"
+   elif [ "$init_daemon" = "systemd" ]; then
      start_stop_functions="$(systemd_start_stop_functions)"
-   elif [ "$init_daemon" = "runit" ]; then
-     start_stop_functions="$(runit_start_stop_functions)"
 +  elif [ "$init_daemon" = "openrc" ]; then
 +    start_stop_functions="$(openrc_start_stop_functions)"
    else
      (>&2 echo "Unknown init daemon: $init_daemon")
      exit 1
-@@ -244,7 +264,9 @@
+@@ -211,7 +230,9 @@
    udev_script_path=$3
-   create_bootstrap_file "$init_daemon" "$udev_script_path"
-   create_udev_rules_file "$rules_path"
+   create_bootstrap_file $init_daemon $udev_script_path
+   create_udev_rules_file $rules_path
 -  trigger_udev_if_devices_connected
 +    if [ ! "$init_daemon" = "openrc" ]; then
-+	trigger_udev_if_devices_connected
++    trigger_udev_if_devices_connected
 +    fi
  }
  

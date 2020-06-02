@@ -12,7 +12,7 @@ SRC_URI="${P}.zip"
 RUN_PN="displaylink-driver"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~x86 amd64"
 IUSE="systemd"
 
 QA_PREBUILT="/opt/displaylink/DisplayLinkManager"
@@ -21,15 +21,15 @@ RESTRICT="fetch"
 DEPEND="app-admin/chrpath"
 RDEPEND=">=sys-devel/gcc-4.8.3
     >=x11-drivers/evdi-1.5.0
-    >=dev-libs/libusb-1.0.23
+    virtual/libusb:1
     || ( x11-drivers/xf86-video-modesetting >=x11-base/xorg-server-1.17.0 )"
 
 PATCHES=(
-    "${FILESDIR}"/displaylink-manager-5.3.1-openrc.patch
+    "${FILESDIR}"/${PN}-${PV}-openrc.patch
 )
 
 pkg_nofetch() {
-    einfo "Please download DisplayLink USB Graphics Software for Ubuntu 5.3.1.zip from"
+    einfo "Please download DisplayLink USB Graphics Software for Ubuntu 5.2.zip from"
     einfo "$HOMEPAGE"
     einfo "and rename it to ${P}.zip"
 }
@@ -41,7 +41,7 @@ src_prepare() {
 
 src_unpack() {
     default
-    sh ./${RUN_PN}-${PV}.*.run --noexec --target "${P}"
+    sh ./${RUN_PN}-${PV}.run --noexec --target "${P}"
 }
 
 src_install() {

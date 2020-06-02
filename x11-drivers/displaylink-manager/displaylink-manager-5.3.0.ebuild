@@ -21,11 +21,11 @@ RESTRICT="fetch"
 DEPEND="app-admin/chrpath"
 RDEPEND=">=sys-devel/gcc-4.8.3
     >=x11-drivers/evdi-1.5.0
-    >=dev-libs/libusb-1.0.23
+    virtual/libusb:1
     || ( x11-drivers/xf86-video-modesetting >=x11-base/xorg-server-1.17.0 )"
 
 PATCHES=(
-    "${FILESDIR}"/displaylink-manager-5.3.1-openrc.patch
+    "${FILESDIR}"/${PN}-${PV}-openrc.patch
 )
 
 pkg_nofetch() {
