@@ -1,4 +1,4 @@
-EAPI=5
+EAPI=7
 
 inherit git-r3 linux-info linux-mod eutils
 
@@ -31,18 +31,9 @@ src_configure() {
 }
 
 src_compile() {
-	BUILD_TARGETS=module linux-mod_src_compile \
-	    KERNELRELEASE="${KV_FULL}" \
-	    src="${KERNEL_DIR}"
-	
-	linux-mod_src_compile
-	default
-}
-
-src_compile() {
+	KERNELRELEASE="${KV_FULL}"
 	linux-mod_src_compile
 	cd "${S}/library"
-	sed -i 's/CFLAGS :=/CFLAGS := -I..\/module/g' Makefile
 	default
 }
 
