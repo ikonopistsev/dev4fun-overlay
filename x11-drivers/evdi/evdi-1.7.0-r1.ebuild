@@ -31,10 +31,10 @@ src_configure() {
 }
 
 src_compile() {
-	KERNELRELEASE="${KV_FULL}"
-	linux-mod_src_compile
-	cd "${S}/library"
-	default
+	BUILD_TARGETS=module linux-mod_src_compile \
+	    KERNELRELEASE="${KV_FULL}" \
+	    src="${KERNEL_DIR}"
+	emake -C "${S}/library"
 }
 
 src_install() {
