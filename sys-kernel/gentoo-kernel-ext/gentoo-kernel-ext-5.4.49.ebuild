@@ -57,18 +57,20 @@ src_unpack() {
 
 src_prepare() {
 
-	local GCC_MAJOR_VER=$(gcc-major-version)
-	local GCC_MINOR_VER=$(gcc-minor-version)
+	if use experimental; then
+	    local GCC_MAJOR_VER=$(gcc-major-version)
+	    local GCC_MINOR_VER=$(gcc-minor-version)
 
-	if [[ "${GCC_MAJOR_VER}" -eq 8 ]]; then
-        # support old kernels for a period. For now, remove as all gcc versions required are masked
-	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc.patch"
-	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"
-	    rm -f "${WORKDIR}"/"5012_enable-cpu-optimizations-for-gcc91.patch"
-	elif [[ "${GCC_MAJOR_VER}" -ge 9 ]] && [[ ${GCC_MINOR_VER} -ge 1 ]]; then
-	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc.patch"
-	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"
-	    rm -f "${WORKDIR}"/"5011_enable-cpu-optimizations-for-gcc8.patch"
+	    if [[ "${GCC_MAJOR_VER}" -eq 8 ]]; then
+	    # support old kernels for a period. For now, remove as all gcc versions required are masked
+		rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc.patch"
+		rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"
+		rm -f "${WORKDIR}"/"5012_enable-cpu-optimizations-for-gcc91.patch"
+	    elif [[ "${GCC_MAJOR_VER}" -ge 9 ]] && [[ ${GCC_MINOR_VER} -ge 1 ]]; then
+		rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc.patch"
+		rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"
+		rm -f "${WORKDIR}"/"5011_enable-cpu-optimizations-for-gcc8.patch"
+	    fi
 	else
 	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc.patch"
 	    rm -f "${WORKDIR}"/"5010_enable-additional-cpu-optimizations-for-gcc-4.9.patch"
