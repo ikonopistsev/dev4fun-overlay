@@ -6,6 +6,5 @@
 		<name>Igor Ikonopistsev</name>
 	</maintainer>
 	<use>
-		<flag name="memeq">Use library memcmp for headers detect</flag>
 	</use>
 </pkgmetadata>

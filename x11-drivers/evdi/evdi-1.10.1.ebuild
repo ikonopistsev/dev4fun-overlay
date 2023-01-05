@@ -1,18 +1,18 @@
-EAPI=6
+EAPI=7
 
-inherit linux-mod
+inherit dist-kernel-utils linux-mod
 
 DESCRIPTION="Extensible Virtual Display Interface"
 HOMEPAGE="https://github.com/DisplayLink/evdi"
 
 LICENSE="GPL-2 LGPL-2.1"
-SLOT="0"
+SLOT="0/${PVR}"
 KEYWORDS="~x86 ~amd64"
 
 SRC_URI="https://github.com/DisplayLink/evdi/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 RDEPEND="x11-libs/libdrm"
-DEPEND="${RDEPEND} sys-kernel/linux-headers"
+DEPEND="${RDEPEND} >=sys-kernel/linux-headers-5.10"
 
 MODULE_NAMES="evdi(video:${S}/module)"
 CONFIG_CHECK="~FB_VIRTUAL ~I2C"
