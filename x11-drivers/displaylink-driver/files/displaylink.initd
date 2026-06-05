@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+# DisplayLink Manager service (OpenRC analog of dlm.service)
+
+description="DisplayLink Manager Service"
+
+supervisor="supervise-daemon"
+command="/opt/displaylink/DisplayLinkManager"
+directory="/opt/displaylink"
+pidfile="/run/${RC_SVCNAME}.pid"
+respawn_delay=5
+output_log="/var/log/displaylink/DisplayLinkManager.log"
+error_log="/var/log/displaylink/DisplayLinkManager.log"
+
+depend() {
+	need localmount
+	after bootmisc modules
+	use display-manager dbus elogind
+}
+
+start_pre() {
+	modprobe -q evdi || ewarn "Could not load evdi kernel module"
+}
