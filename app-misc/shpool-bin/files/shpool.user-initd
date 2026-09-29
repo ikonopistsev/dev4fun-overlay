@@ -1,0 +1,9 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Shpool - Shell Session Pool"
+
+supervisor="supervise-daemon"
+command="/usr/bin/shpool"
+command_args="daemon"

@@ -25,4 +25,14 @@ QA_PREBUILT="usr/bin/shpool"
 src_install() {
 	dobin shpool
 	systemd_douserunit "${FILESDIR}"/shpool.service "${FILESDIR}"/shpool.socket
+
+	exeinto /etc/user/init.d
+	newexe "${FILESDIR}"/shpool.user-initd shpool
+}
+
+pkg_postinst() {
+	elog "shpool starts its daemon on demand (autodaemonize), no service is required."
+	elog "To keep the daemon under a service manager instead:"
+	elog "  systemd: systemctl --user enable --now shpool.socket"
+	elog "  OpenRC:  rc-update --user add shpool default && rc-service --user shpool start"
 }
